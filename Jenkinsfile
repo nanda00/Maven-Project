@@ -17,6 +17,6 @@ node('master'){
          }
    }
    stage('Docker Build'){
-      sh 'docker build . -t yogananda/webapp:latest'
+      sh 'docker build -t yogananda/webapp:latest .'
    }
 }
