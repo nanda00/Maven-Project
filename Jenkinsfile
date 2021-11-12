@@ -16,7 +16,4 @@ node('master'){
             sh 'aws s3 cp /var/lib/jenkins/workspace/pipeline/webapp/target/webapp.war s3://yoga59builds'
          }
    }
-   stage('Docker Build'){
-      sh 'docker build . -t yogananda/webapp:latest'
-   }
 }
