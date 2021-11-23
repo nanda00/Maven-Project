@@ -1,17 +1,17 @@
 node('master') {
-   stage('Continuous Download') {
-      git 'https://github.com/nanda00/Maven-Project.git'
-   }
-   stage('Continuous build') {
-      sh label: '', script: '/opt/maven/bin/mvn package'
-   }
-   stage('Continuous Deployment') {
-      sh label: '', script: 'scp /var/lib/jenkins/workspace/demo1/webapp/target/webapp.war ec2-user@172.31.35.248:opt/tomcat/webapps/qa.war'
-   }
-   stage('Continuous Testing') {
-      sh "echo 'Testing Passed'"
-   }
-   stage('Continuous Delivery') {
-      deploy adapters: [tomcat9(credentialsId: 'feab3c69-4bed-4191-855e-1713990c6fae', path: '', url: 'http://172.31.35.248:8080')], contextPath: 'prod', onFailure: false, war: '**/*.war'
-   }
+    stage('Continuous Download') {
+        git 'https://github.com/nanda00/Maven-Project.git'
+    }
+    stage('Continuous build') {
+        sh '/opt/maven/bin/mvn package'
+    }
+    stage('Continuous Deployment') {
+        sh 'scp /var/lib/jenkins/workspace/demo1/webapp/target/webapp.war ec2-user@172.31.35.248:opt/tomcat/webapps/qa.war'
+    }
+    stage('Continuous Testing') {
+        sh "echo 'Testing Passed'"
+    }
+    stage('Continuous Delivery') {
+        deploy adapters: [tomcat9(credentialsId: 'feab3c69-4bed-4191-855e-1713990c6fae', path: '', url: 'http://172.31.35.248:8080')], contextPath: 'prod', onFailure: false, war: '**/*.war'
+    }
 }
